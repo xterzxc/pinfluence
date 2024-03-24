@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
     'rest_framework.authtoken',
     'users',
     'images',
@@ -92,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 LANGUAGE_CODE = 'en-us'
 
@@ -116,6 +117,9 @@ REST_FRAMEWORK = {
 }
 
 
+
+# cloud settings
+
 import cloudinary
 
 cloudinary.config( 
@@ -125,6 +129,10 @@ cloudinary.config(
 )
 
 
+
+# email conf settings
+
+DEFAULT_SERVICE_URL = 'http://127.0.0.1:8000' # change on deploy
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')

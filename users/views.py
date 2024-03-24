@@ -11,7 +11,7 @@ from .models import EmailVerifToken
 from datetime import datetime, timedelta
 import secrets
 from django.core.mail import send_mail
-from pinfluence.settings import DEFAULT_FROM_EMAIL
+from pinfluence.settings import DEFAULT_FROM_EMAIL, DEFAULT_SERVICE_URL
 
 
 
@@ -37,7 +37,7 @@ def signup(request):
         
         verification_token = EmailVerifToken.objects.create(user=user, token=token)
         
-        verification_link = f"http://127.0.0.1:8000/account/verify-email/?token={token}"
+        verification_link = f"{DEFAULT_SERVICE_URL}/accounts/verify-email/?token={token}"
         
         email_subject = "Please verify your email address"
         email_message = f"Hello {user.username},\n\nPlease click on the following link to verify your email address:\n{verification_link}"
@@ -69,9 +69,9 @@ def verify_email(request):
 
 
 
-@api_view(['GET'])
-@authentication_classes([SessionAuthentication, TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @api_view(['GET'])
+# @authentication_classes([SessionAuthentication, TokenAuthentication])
+# @permission_classes([IsAuthenticated])
 
-def test_token(request):
-    return Response("passed for {}".format(request.user.email))
+# def test_token(request):
+#     return Response("passed for {}".format(request.user.email))
