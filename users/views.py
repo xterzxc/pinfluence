@@ -39,8 +39,8 @@ def signup(request):
         
         verification_link = f"{DEFAULT_SERVICE_URL}/accounts/verify-email/?token={token}"
         
-        email_subject = "Please verify your email address"
-        email_message = f"Hello {user.username},\n\nPlease click on the following link to verify your email address:\n{verification_link}"
+        email_subject = "Please verify your email address..."
+        email_message = f"Hello {user.username},\n\nPlease click on the link to verify email:\n{verification_link}"
         
         send_mail(email_subject, email_message, DEFAULT_FROM_EMAIL, [user.email])
 
@@ -65,13 +65,3 @@ def verify_email(request):
         except EmailVerifToken.DoesNotExist:
             return Response({"detail": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST)
     return Response({"detail": "Token parameter is missing."}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-# @api_view(['GET'])
-# @authentication_classes([SessionAuthentication, TokenAuthentication])
-# @permission_classes([IsAuthenticated])
-
-# def test_token(request):
-#     return Response("passed for {}".format(request.user.email))

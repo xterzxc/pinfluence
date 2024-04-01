@@ -21,7 +21,7 @@ class Image(models.Model):
 class Comment(models.Model):
     image = models.ForeignKey(Image, related_name='comments', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField()
+    text = models.TextField(max_length = 200)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

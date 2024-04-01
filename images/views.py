@@ -1,10 +1,12 @@
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.permissions import IsAuthenticated
 import cloudinary.uploader
-from .models import Image
+from .models import Image, Comment
+from .serializers import CommentSerializer
 
 
 
@@ -69,3 +71,14 @@ class UploadView(APIView):
                 'uploaded_at': image.uploaded_at,
             },
         }, status=201)
+    
+
+class CommentsImg(ListAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        image_id = self.kwargs['image_id']
+        return Comment.objects.filter(image=image_id)
+
+class CommentCreate(CreateAPIView):
+    serializer_class = CommentSerializer
